@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RequiredArgsConstructor
@@ -38,10 +37,10 @@ public class BoardController {
 
     @ResponseBody
     @PostMapping(value="/board/create")
-    public Map<String, Object> create(@RequestParam String subject, @RequestParam String content) {
+    public Map<String, Object> create(@RequestParam String subject, @RequestParam String content, MultipartFile file) throws Exception {
         Map<String, Object> response = new HashMap<>();
         
-        this.boardService.create(subject, content);
+        this.boardService.create(subject, content, file);
 
         response.put("success", true);
         response.put("message", "등록되었습니다.");
